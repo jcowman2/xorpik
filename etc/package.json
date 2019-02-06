@@ -1,0 +1,15 @@
+{
+  "name": "etc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Joe Cowman <joe.r.cowman@gmail.com> (http://joecowman.com)",
+  "license": "ISC",
+  "dependencies": {
+    "regal": "^1.0.0"
+  }
+}
