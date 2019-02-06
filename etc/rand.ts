@@ -9,10 +9,4 @@ onStartCommand(game => {
 Game.init({ name: "rand", author: "lars" });
 
 // tslint:disable-next-line:no-console
-console.log(
-    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg=="
-        .length
-);
-
-// tslint:disable-next-line:no-console
 console.log(Game.postStartCommand().output.log[0].data);
