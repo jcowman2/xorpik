@@ -1,6 +1,7 @@
 import typescript from "rollup-plugin-typescript2";
 import resolve from "rollup-plugin-node-resolve";
 import cleanup from "rollup-plugin-cleanup";
+import commonjs from "rollup-plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 
 import pkg from "./package.json";
@@ -46,14 +47,23 @@ export default [
     },
     {
         input: "./src/index.ts",
-        output: { file: pkg.browser, format: "umd", name: "xorpik" },
+        output: { 
+            file: pkg.browser, 
+            format: "umd", 
+            name: "xorpik",
+            globals: {
+                axios: "axios"
+            }
+        },
         plugins: [
             tsPlugin,
             resolve(),
+            commonjs(),
             terser({
                 output: { comments: false, preamble: banner }
             })
         ],
-        onwarn: suppressCircularImportWarnings
+        onwarn: suppressCircularImportWarnings,
+        external: Object.keys(pkg.dependencies || {}),
     }
 ]

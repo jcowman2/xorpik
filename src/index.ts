@@ -1,4 +1,7 @@
-import axios from "axios";
+import * as _axios from "axios";
+
+// @ts-ignore
+const axios: _axios.AxiosStatic = _axios;
 
 const getImageString = async (url: string) => {
     const resp = await axios.get(url, {
@@ -8,17 +11,20 @@ const getImageString = async (url: string) => {
     const fr = new FileReader();
     fr.readAsDataURL(resp.data);
 
-    return new Promise((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
         fr.onerror = reject;
-        fr.onload = () => resolve(fr.result);
+        fr.onload = () => resolve(fr.result as string);
     });
 };
 
-getImageString(
-    "https://avatars2.githubusercontent.com/u/21223537?s=460&v=4"
-).then(result => {
-    // tslint:disable-next-line:no-console
-    console.log(result);
-});
+export default () =>
+    getImageString(
+        "https://avatars2.githubusercontent.com/u/21223537?s=460&v=4"
+    ).then(result => {
+        // tslint:disable-next-line:no-console
+        // console.log(result);
 
-export default (arg: string) => `Hello, ${arg}!`;
+        const img = new Image();
+        img.src = result;
+        document.body.append(img);
+    });
